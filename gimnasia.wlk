@@ -6,15 +6,21 @@ class Rutina {
     method descanso(tiempo)
     method intensidad()
     method caloriasABajarPor(tiempo) {
-        100 * (tiempo - self.descanso(tiempo)) * self.intensidad()
+        return 100 * (tiempo - self.descanso(tiempo)) * self.intensidad()
     }
 }
 
 class Persona{
-    
+    var property peso = null
+
+    method pesoQuePierde(rutina){
+        rutina.caloriasABajarPor(tiempo)/ self.kilosPorCaloríaQuePierde()
+        //self.error("Tu peso está por debajo de los 50kg, no podes aplicar "+rutina)
+    }
 }
 
-// ================================ SUBCLASES ===============================
+// =============================== SUBCLASES ===============================
+// =============================== RUTINAS ===============================
 class RutinaRunning inherits Rutina{
     override method intensidad() = 1.2
 
@@ -45,4 +51,21 @@ class RutinaRemoDeCompeticion inherits RutinaRemo{
     override method intensidad() = 1.7
     //override method descanso(tiempo) = 2.max(super.descanso(tiempo))
     override method descanso(tiempo) = 2.max(super(tiempo))
+}
+
+// =================================== PERSONAS ====================================
+class PersonaSedentaria inherits Persona{
+    //var property puedeAplicarRutina = 
+    const property kilosPorCaloría  = 7000
+    var property tiempoQueEjercita = null
+
+    method kilosPorCaloríaQuePierde () {
+        return peso - kilosPorCaloría
+    }
+}
+
+class PersonaAtleta inherits Persona{
+    method kilosPorCaloríaQuePierde () {
+        return 0
+    }
 }
