@@ -1,15 +1,22 @@
+// ======================================== SUPER CLASES =========================================
 class Rutina {
     //var property tiempo = null
     //var property caloriasABajar = 100 * (tiempo - descanso) * intensidad
 
     method descanso(tiempo)
     method intensidad()
-    method caloriasABajarPor(tiempo)
+    method caloriasABajarPor(tiempo) {
+        100 * (tiempo - self.descanso(tiempo)) * self.intensidad()
+    }
 }
 
+class Persona{
+    
+}
+
+// ================================ SUBCLASES ===============================
 class RutinaRunning inherits Rutina{
-    var property intensidad = null
-    //var property tiempo = null
+    override method intensidad() = 1.2
 
     override method descanso(tiempo) {
         if (tiempo > 20){
@@ -18,20 +25,24 @@ class RutinaRunning inherits Rutina{
             return 2
         }
     }
+}
 
-    override method caloriasABajarPor(tiempo){
-        return 100 * (tiempo - self.descanso(tiempo)) * intensidad
+class RutinaMaraton inherits RutinaRunning{
+    override method caloriasABajarPor(tiempo) {
+        super(tiempo) * 2
     }
 }
 
-class RutinaMaraton inherits Rutina{
-
-}
-
 class RutinaRemo inherits Rutina{
+    override method intensidad() = 1.3
 
+    override method descanso(tiempo){
+        return tiempo / 5
+    }
 }
 
-class RutinaRemoDeCompeticion inherits Rutina{
-
+class RutinaRemoDeCompeticion inherits RutinaRemo{
+    override method intensidad() = 1.7
+    //override method descanso(tiempo) = 2.max(super.descanso(tiempo))
+    override method descanso(tiempo) = 2.max(super(tiempo))
 }
