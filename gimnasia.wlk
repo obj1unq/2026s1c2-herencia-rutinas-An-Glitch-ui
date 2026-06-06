@@ -9,12 +9,12 @@ class Rutina {
         return 100 * (tiempo - self.descanso(tiempo)) * self.intensidad()
     }
 }
-
+// ================================== PERSONA ==============================
 class Persona{
     var property peso = null
 
-    method pesoQuePierdeAlRutinar(rutina, tiempo){
-        self.validarHacerRutinaPor(rutina, tiempo)
+    method pesoQuePierdeAlRutinar(rutina){
+        self.validarHacerRutinaPor(rutina, self.tiempoARutinar())
         rutina.caloriasABajarPor(self.tiempoARutinar()) / self.kilosPorCaloría()
     }
 
@@ -23,6 +23,11 @@ class Persona{
             self.error("Tu peso está por debajo de los 50kg, no podes aplicar "+r)
         }
     }
+}
+
+// ============================== CLUB =============================
+class Club{
+    
 }
 
 // =============================== SUBCLASES ===============================
@@ -62,13 +67,7 @@ class RutinaRemoDeCompeticion inherits RutinaRemo{
 // =================================== PERSONAS ====================================
 class PersonaSedentaria inherits Persona{
     const property kilosPorCaloría  = 7000
-    var property tiempoQueEjercita = null
-
-    //override method pesoQuePierdeAlRutinar(rutina, tiempo)
-
-    //method kilosPorCaloríaQuePierde(rutina, tiempo) {
-    //    return peso - kilosPorCaloría
-    //}
+    var property tiempoARutinar = null
 
     method puedeAplicarRutina() {
         return peso >= 50
@@ -79,8 +78,9 @@ class PersonaAtleta inherits Persona{
     const property kilosPorCaloría  = 8000
     const property tiempoARutinar = 90
 
-    override method pesoQuePierdeAlRutinar(rutina, tiempoARutinar) {
-        return (rutina.caloriasABajarPor() / kilosPorCaloría) - 1
+    override method pesoQuePierdeAlRutinar(rutina) {
+        //return (rutina.caloriasABajarPor() / kilosPorCaloría) - 1
+        super.pesoQuePierdeAlRutinar(rutina, tiempoARutinar) - 1
     }
 
     method puedeAplicarRutina(rutina) {  //Solo realizan una rutina si las calorías que consumiría al realizarla es mayor a 10000
